@@ -1,12 +1,10 @@
-import {param} from "../index.js";
+import {query} from "../index.js";
 
-export const params = [
-  param("name"),
-  param("email"),
-]
+export const prepare = [
+  query("name"), 
+  query("email")
+];
 
-export function handler(name, email) {
-  return {name, email}
+export default async function handler(name, email) {
+  return JSON.stringify({name, email});
 }
-
-console.log("HERE");
