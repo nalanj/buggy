@@ -1,3 +1,3 @@
 import { buggy } from "./buggy.js";
 
-buggy();
+await buggy();

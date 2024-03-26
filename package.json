@@ -1,5 +1,6 @@
 {
   "name": "@nalanj/buggy",
+  "version": "dev",
   "type": "module",
   "devDependencies": {
     "eslint": "8.57.0",
