@@ -76,5 +76,44 @@ async function run(commands, config) {
 
   const args = process.argv.slice(4);
   const result = await found.default(...args);
-  console.log(result);
+
+  let output, status;
+
+  if (result.status) {
+    output = result.payload;
+    status = result.status;
+  } else {
+    output = result;
+    status = 200;
+  }
+
+  if (status !== 200) {
+    console.error(`Command returned error: ${StatusMessage[status]}`);
+    process.exit(status || 2);
+  } else {
+    console.log(JSON.stringify(output, null, 2));
+    process.exit(0);
+  }
+}
+
+const Status = {
+  OK: 200,
+  NotFound: 404,
+};
+
+const StatusMessage = {
+  200: "OK",
+  404: "Not Found",
+};
+
+export function wrapOutput(status, payload) {
+  return { status, payload };
+}
+
+export function ok(payload) {
+  return wrapOutput(Status.OK, payload);
+}
+
+export function notFound() {
+  return wrapOutput(Status.NotFound);
 }
