@@ -8,12 +8,14 @@ export async function buggy(
     exts: [".js"],
   },
 ) {
+  if (!process.argv[2] || process.argv[2] === "help") {
+    globalHelp();
+    return;
+  }
+
   const commands = await loadCommands(config);
 
-  if (process.argv[2] === "help") {
-    globalHelp(commands, config);
-    return;
-  } else if (process.argv[2] === "run") {
+  if (process.argv[2] === "run") {
     await run(commands, config);
     return;
   }
