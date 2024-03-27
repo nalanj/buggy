@@ -28,10 +28,11 @@ async function loadCommands(config) {
     withFileTypes: true,
     recursive: true,
   });
+
   for (const file of files) {
     if (file.isFile() && config.exts.includes(path.extname(file.name))) {
       const cmd = await import(path.join(file.path, file.name));
-      if (cmd.route && cmd.default) {
+      if (cmd.default) {
         cmds.push(cmd);
       }
     }
@@ -58,7 +59,9 @@ function runHelp(commands) {
   console.log();
   console.log("Commands:");
   for (const cmd of commands) {
-    console.log(`  ${cmd.route}\t\t${cmd.desc}`);
+    if (cmd.name) {
+      console.log(`  ${cmd.name}\t\t${cmd.desc}`);
+    }
   }
 }
 
@@ -70,7 +73,7 @@ async function run(commands, config) {
     return;
   }
 
-  const found = commands.find((cmd) => cmd.route === wantCmd);
+  const found = commands.find((cmd) => cmd.name === wantCmd);
   if (!found) {
     console.error(`Command ${wantCmd} not found`);
     return;
