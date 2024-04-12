@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { meta } from "./meta.js";
+import { serve } from "./serve.js";
 
 export async function buggy(
   config = {
@@ -17,6 +18,9 @@ export async function buggy(
 
   if (process.argv[2] === "run") {
     await run(commands, config);
+    return;
+  } else if (process.argv[2] === "serve") {
+    await serve(commands, config);
     return;
   }
 }
@@ -121,4 +125,12 @@ export function ok(payload) {
 
 export function notFound() {
   return wrapOutput(Status.NotFound);
+}
+
+export function query(name) {
+  return { type: "query", name };
+}
+
+export function route(name) {
+  return { type: "route", name };
 }
