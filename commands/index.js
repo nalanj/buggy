@@ -9,5 +9,5 @@ export const http = {
 };
 
 export default async function command(name, email) {
-	return ok({ name, email });
+	return { name, email };
 }
