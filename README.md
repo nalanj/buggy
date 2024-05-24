@@ -9,6 +9,8 @@
 ## Stuff to do:
 
 - Generate massive route regex for all routes
+- Load config file from current directory
+- Add function for post-processing output for http and cli
 - Invalid args error, sends back 422
 - Get serve working in some meaningful way
 - Set up config loading for top-level config
