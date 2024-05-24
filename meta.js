@@ -1,3 +1,3 @@
 export const meta = {
-  version: "DEV",
+	version: "DEV",
 };
